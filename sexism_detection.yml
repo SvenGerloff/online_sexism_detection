@@ -1,0 +1,16 @@
+name: sexism_detection
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  - nltk
+  - matplotlib
+  - plotly
+  - fastparquet
+  - pip:
+      - stanza
