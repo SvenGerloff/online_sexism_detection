@@ -2,6 +2,7 @@
 urls:
   # URL for downloading data
   data_url: "https://raw.githubusercontent.com/rewire-online/edos/main/data/edos_labelled_aggregated.csv"
+  data_individual_annotations_url: "https://raw.githubusercontent.com/rewire-online/edos/main/data/edos_labelled_individual_annotations.csv'"
 
 paths:
   # Relative input path for data
@@ -9,6 +10,8 @@ paths:
 
   # Output directory path
   output_dir: "../data"
+
+  preprocessing_file: "../milestone_1/run_preprocessing.py"
 
 files:
   # Main output files within the output directory
