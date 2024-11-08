@@ -1,15 +1,15 @@
 # config.yaml
 urls:
-  # URL for downloading data
+  # URL for downloading data_submission
   data_url: "https://raw.githubusercontent.com/rewire-online/edos/main/data/edos_labelled_aggregated.csv"
   data_individual_annotations_url: "https://raw.githubusercontent.com/rewire-online/edos/main/data/edos_labelled_individual_annotations.csv'"
 
 paths:
-  # Relative input path for data
-  data_file: "../data/edos_labelled_aggregated.csv"
+  # Relative input path for data_submission
+  data_file: "../data_submission/edos_labelled_aggregated.csv"
 
   # Output directory path
-  output_dir: "../milestone_1/data"
+  output_dir: "../milestone_1/data_submission"
 
   preprocessing_file: "../milestone_1/run_preprocessing.py"
 

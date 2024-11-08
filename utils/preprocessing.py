@@ -16,7 +16,7 @@ with open("../config.yaml", "r") as f:
 data_url = config["urls"]["data_url"]
 # Paths relative to the current working directory
 base_dir = os.getcwd()
-# Input data path and output directory
+# Input data_submission path and output directory
 data_path = os.path.normpath(os.path.join(base_dir, config["paths"]["data_file"]))
 output_folder = os.path.normpath(os.path.join(base_dir, config["paths"]["output_dir"]))
 # Main output files
@@ -41,9 +41,9 @@ nlp_pipeline = stanza.Pipeline(lang='en')
 
 
 def load_data_and_prepare():
-    # Ensure the directory for the data path exists
+    # Ensure the directory for the data_submission path exists
     os.makedirs(os.path.dirname(data_path), exist_ok=True)
-    # Attempt to download the data from the URL first
+    # Attempt to download the data_submission from the URL first
     try:
         query_parameters = {"downloadformat": "csv"}
         download = requests.get(data_url, params=query_parameters)
@@ -55,7 +55,7 @@ def load_data_and_prepare():
 
         print(f"Data downloaded and saved to {data_path}.")
 
-        # Load CSV data directly from the downloaded file
+        # Load CSV data_submission directly from the downloaded file
         df = pd.read_csv(data_path)
 
     except requests.RequestException:
@@ -69,7 +69,7 @@ def load_data_and_prepare():
             print(f"Error: Local file not found at {data_path}.")
             return None  # Return None if both download and local loading fail
 
-    # Prepare the data
+    # Prepare the data_submission
     df['label_sexist'] = df['label_sexist'].map({'sexist': 1, 'not sexist': 0})
     df = df.loc[:, ["text", "label_sexist", "split"]]
     df.rename(columns={'label_sexist': 'label'}, inplace=True)
@@ -120,7 +120,7 @@ def prepare_full_dataset():
     # Ensure output folder exists
     os.makedirs(output_folder, exist_ok=True)
 
-    # Load and process data
+    # Load and process data_submission
     df = load_data_and_prepare()
     docs, df = process_text(df)
 
