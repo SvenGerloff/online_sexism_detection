@@ -3,8 +3,8 @@ import sys
 sys.path.append('..')
 from utils.preprocessing import prepare_full_dataset, prepare_split_datasets,load_processed_data
 
-
 processed_df, conllu_format = prepare_full_dataset()
+print(processed_df)
 split_datasets = prepare_split_datasets()
 
 split_dfs = load_processed_data(split=['train', 'dev', 'test'])

@@ -9,7 +9,7 @@ paths:
   data_file: "../data/edos_labelled_aggregated.csv"
 
   # Output directory path
-  output_dir: "../data"
+  output_dir: "../milestone_1/data"
 
   preprocessing_file: "../milestone_1/run_preprocessing.py"
 
