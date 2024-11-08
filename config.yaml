@@ -4,10 +4,10 @@ urls:
   data_url: "https://raw.githubusercontent.com/rewire-online/edos/main/data/edos_labelled_individual_annotations.csv"
 
 paths:
-  # Relative input path for data (used if not downloading from URL)
+  # Relative input path for data
   data_file: "../data/edos_labelled_aggregated.csv"
 
-  # Output directory path (relative)
+  # Output directory path
   output_dir: "../data"
 
 files:

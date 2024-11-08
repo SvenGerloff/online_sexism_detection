@@ -41,6 +41,8 @@ nlp_pipeline = stanza.Pipeline(lang='en')
 
 
 def load_data_and_prepare():
+    # Ensure the directory for the data path exists
+    os.makedirs(os.path.dirname(data_path), exist_ok=True)
     # Attempt to download the data from the URL first
     try:
         query_parameters = {"downloadformat": "csv"}
@@ -71,7 +73,7 @@ def load_data_and_prepare():
     df['label_sexist'] = df['label_sexist'].map({'sexist': 1, 'not sexist': 0})
     df = df.loc[:, ["text", "label_sexist", "split"]]
     df.rename(columns={'label_sexist': 'label'}, inplace=True)
-    return df.head(5)
+    return df
 
 def clean_text(text):
     return re.sub(r'\[USER\]', '', text).strip()
