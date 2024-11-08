@@ -6,7 +6,7 @@ urls:
 
 paths:
   # Relative input path for data_submission
-  data_file: "../data_submission/edos_labelled_aggregated.csv"
+  data_file: "../milestone_1/data_submission/edos_labelled_aggregated.csv"
 
   # Output directory path
   output_dir: "../milestone_1/data_submission"
