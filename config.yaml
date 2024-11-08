@@ -1,7 +1,7 @@
 # config.yaml
 urls:
   # URL for downloading data
-  data_url: "https://raw.githubusercontent.com/rewire-online/edos/main/data/edos_labelled_individual_annotations.csv"
+  data_url: "https://raw.githubusercontent.com/rewire-online/edos/main/data/edos_labelled_aggregated.csv"
 
 paths:
   # Relative input path for data
