@@ -1,0 +1,28 @@
+# config.yaml
+urls:
+  # URL for downloading data
+  data_url: "https://raw.githubusercontent.com/rewire-online/edos/main/data/edos_labelled_individual_annotations.csv"
+
+paths:
+  # Relative input path for data (used if not downloading from URL)
+  data_file: "../data/edos_labelled_aggregated.csv"
+
+  # Output directory path (relative)
+  output_dir: "../data"
+
+files:
+  # Main output files within the output directory
+  parquet_file: "full_dataset.parquet"
+  conllu_file: "full_dataset.conllu"
+
+  # Subsets for train, dev, and test splits
+  subsets:
+    train:
+      parquet: "train_dataset.parquet"
+      conllu: "train_dataset.conllu"
+    dev:
+      parquet: "dev_dataset.parquet"
+      conllu: "dev_dataset.conllu"
+    test:
+      parquet: "test_dataset.parquet"
+      conllu: "test_dataset.conllu"
