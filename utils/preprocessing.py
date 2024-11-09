@@ -7,6 +7,7 @@ from tqdm import tqdm
 import yaml
 from stanza.utils.conll import CoNLL
 import requests
+from nltk.corpus import stopwords
 
 # Determine the path to config.yaml
 config_path = os.getenv("CONFIG_PATH", "../config.yaml")
@@ -87,7 +88,8 @@ def clean_text(text):
     """Clean the text by removing [USER] and [URL] tags, and count their occurrences."""
     user_count = len(re.findall(r'\[USER\]', text))
     url_count = len(re.findall(r'\[URL\]', text))
-    cleaned_text = re.sub(r'\[USER\]|\[URL\]', '', text).strip()
+    cleaned_text = re.sub(r'\[USER\]', 'USERTOKEN', text).strip()
+    cleaned_text = re.sub(r'\[URL\]', 'URLTOKEN', cleaned_text).strip()
     return cleaned_text, user_count, url_count
 
 def process_pipeline(text):
@@ -97,8 +99,23 @@ def process_pipeline(text):
     doc = nlp_pipeline(cleaned_text)
     lemmas, pos_tags = [], []
 
+    custom_stopwords = ['what', 'which', 'who', 'whom', 'this', 'that', "that'll", 'these', 'those',
+                        'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until',
+                        'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through',
+                        'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on',
+                        'off', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where',
+                        'why', 'how', 'such', 'so', 'than', 'very', 'will', 'just', 'now', 'd', 'll', 'm', 'o', 're',
+                        've', 'y', 'ain']
+
     for sentence in doc.sentences:
         for word in sentence.words:
+            # filter stopwords
+            if word.lemma in custom_stopwords:
+                continue
+            # filter punctuation
+            if not re.search(r'[a-zA-Z]', word.lemma):
+                continue
+
             lemmas.append(word.lemma)
             pos_tags.append(word.upos)
 
