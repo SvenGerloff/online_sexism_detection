@@ -8,8 +8,11 @@ import yaml
 from stanza.utils.conll import CoNLL
 import requests
 
+# Determine the path to config.yaml
+config_path = os.getenv("CONFIG_PATH", "../config.yaml")
+
 # Load configuration from YAML
-with open("../config.yaml", "r") as f:
+with open(config_path, "r") as f:
     config = yaml.safe_load(f)
 
 # URL from configuration
@@ -18,6 +21,7 @@ data_url = config["urls"]["data_url"]
 base_dir = os.getcwd()
 # Input data_submission path and output directory
 data_path = os.path.normpath(os.path.join(base_dir, config["paths"]["data_file"]))
+data_path_csv = os.path.normpath(os.path.join(base_dir, config["paths"]["data_file_csv"]))
 output_folder = os.path.normpath(os.path.join(base_dir, config["paths"]["output_dir"]))
 # Main output files
 parquet_path = os.path.join(output_folder, config["files"]["parquet_file"])
@@ -41,46 +45,52 @@ nlp_pipeline = stanza.Pipeline(lang='en')
 
 
 def load_data_and_prepare():
-    # Ensure the directory for the data_submission path exists
+    # Ensure the directory for the data path exists
     os.makedirs(os.path.dirname(data_path), exist_ok=True)
-    # Attempt to download the data_submission from the URL first
-    try:
-        query_parameters = {"downloadformat": "csv"}
-        download = requests.get(data_url, params=query_parameters)
-        download.raise_for_status()
 
-        # Save downloaded content to the specified local path
-        with open(data_path, mode="wb") as file:
-            file.write(download.content)
+    # Check if the .parquet file already exists
+    if os.path.exists(data_path):
+        print(f"Loading data from {data_path}...")
+        df = pd.read_parquet(data_path)
+    else:
+        # Attempt to download the data
+        try:
+            query_parameters = {"downloadformat": "csv"}
+            download = requests.get(data_url, params=query_parameters)
+            download.raise_for_status()
 
-        print(f"Data downloaded and saved to {data_path}.")
+            # Save downloaded content as .csv file
+            with open(data_path_csv, mode="wb") as file:
+                file.write(download.content)
 
-        # Load CSV data_submission directly from the downloaded file
-        df = pd.read_csv(data_path)
+            # Read the CSV data into a DataFrame
+            df = pd.read_csv(data_path_csv)
 
-    except requests.RequestException:
-        print(f"Failed to download data from {data_url}.")
+            # Save DataFrame as .parquet and remove the .csv file
+            df.to_parquet(data_path, index=False)
+            os.remove(data_path_csv)
+            print(f"Data downloaded and saved to {data_path}.")
 
-        # Check if the local file exists
-        if os.path.exists(data_path):
-            print(f"Loading data from local file at {data_path}...")
-            df = pd.read_csv(data_path)
-        else:
-            print(f"Error: Local file not found at {data_path}.")
-            return None  # Return None if both download and local loading fail
+        except requests.RequestException as e:
+            print(f"Failed to download data from {data_url}: {e}")
+            return None
 
-    # Prepare the data_submission
+    # Prepare the data
     df['label_sexist'] = df['label_sexist'].map({'sexist': 1, 'not sexist': 0})
-    df = df.loc[:, ["text", "label_sexist", "split"]]
+    df = df[["text", "label_sexist", "split"]]
     df.rename(columns={'label_sexist': 'label'}, inplace=True)
     return df
 
 def clean_text(text):
-    return re.sub(r'\[USER\]', '', text).strip()
+    """Clean the text by removing [USER] and [URL] tags, and count their occurrences."""
+    user_count = len(re.findall(r'\[USER\]', text))
+    url_count = len(re.findall(r'\[URL\]', text))
+    cleaned_text = re.sub(r'\[USER\]|\[URL\]', '', text).strip()
+    return cleaned_text, user_count, url_count
 
 def process_pipeline(text):
     """Clean and process a single text entry to extract lemmas and POS tags."""
-    cleaned_text = clean_text(text)
+    cleaned_text, user_count, url_count = clean_text(text)
     doc = nlp_pipeline(cleaned_text)
     lemmas, pos_tags = [], []
 
@@ -89,20 +99,22 @@ def process_pipeline(text):
             lemmas.append(word.lemma)
             pos_tags.append(word.upos)
 
-    return doc, lemmas, pos_tags
+    return doc, lemmas, pos_tags, user_count, url_count
 
 def process_text(df):
-    """Process a DataFrame of text entries to extract lemmas and POS tags with progress bar."""
+    """Process a DataFrame of text entries to extract lemmas, POS tags, and counts of [USER] and [URL]."""
     # Apply process_pipeline to each text entry in the DataFrame with progress tracking
     processed = df['text'].progress_apply(process_pipeline)
 
     # Unpack the results into separate lists
-    docs, lemmas, pos_tags = zip(*processed)
+    docs, lemmas, pos_tags, user_counts, url_counts = zip(*processed)
 
     # Add the lists to the DataFrame as new columns
-    df = df.copy()  # Ensure we're working with a copy
+    df = df.copy()
     df['lemma'] = lemmas
     df['pos'] = pos_tags
+    df['user_count'] = user_counts
+    df['url_count'] = url_counts
 
     return docs, df
 
@@ -115,42 +127,40 @@ def save_to_parquet(df, output_path_df):
     """Save df as a Parquet file"""
     df.to_parquet(output_path_df, index=False)
 
-def prepare_full_dataset():
-    """Load, process, and save the entire dataset"""
+
+def prepare_split_datasets(n_samples=None):
+    """ Split dataset by train, dev, and test subsets and save each subset as Parquet and CoNLL-U files."""
     # Ensure output folder exists
     os.makedirs(output_folder, exist_ok=True)
 
-    # Load and process data_submission
-    df = load_data_and_prepare()
-    docs, df = process_text(df)
-
-    save_to_parquet(df, parquet_path)
-    save_to_conllu(docs, conllu_path)
-
-    return df, docs
-
-def prepare_split_datasets():
-    """Split dataset by train, dev, and test subsets"""
-    # Ensure output folder exists
-    os.makedirs(output_folder, exist_ok=True)
-
+    # Load and prepare the full dataset
     df = load_data_and_prepare()
     split_datasets = {}
 
-    # Dictionary to store paths for each split type
+    # Paths for each split type
     paths = {
         "train": {"parquet": train_parquet, "conllu": train_conllu},
         "dev": {"parquet": dev_parquet, "conllu": dev_conllu},
         "test": {"parquet": test_parquet, "conllu": test_conllu}
     }
+
     for split_type in ['train', 'dev', 'test']:
         subset_df = df[df['split'] == split_type]
+
+        # If n_samples is specified, take a sample of that size
+        if n_samples is not None:
+            subset_df = subset_df.sample(n=min(n_samples, len(subset_df)), random_state=42)
+
         if not subset_df.empty:
+            # Process each subset
             docs, processed_subset = process_text(subset_df)
 
-            # Save each subset as Parquet and CoNLL-U
+            # Save each subset as Parquet and CoNLL-U files
             save_to_parquet(processed_subset, paths[split_type]["parquet"])
+            print('')
+            print(f'DataFrame {split_type} was saved as a Parquet file at: {paths[split_type]["parquet"]}')
             save_to_conllu(docs, paths[split_type]["conllu"])
+            print(f'Document {split_type} was saved as a CoNLL-U file at: {paths[split_type]["conllu"]}')
 
             # Store processed subset in dictionary
             split_datasets[split_type] = (processed_subset, docs)
@@ -160,11 +170,7 @@ def prepare_split_datasets():
 def load_processed_data(split=None):
     # Load the full dataset if no specific split is requested
     if split is None:
-        if os.path.exists(parquet_path):
-            return pd.read_parquet(parquet_path)
-        else:
-            print("Warning: Full dataset file not found.")
-            return None
+        split = ["train", "dev", "test"]
 
     # Load specified split datasets
     split_dataframes = {}
@@ -182,6 +188,54 @@ def load_processed_data(split=None):
             print(f"Warning: {split_type} split file not found.")
 
     return split_dataframes
+
+def load_conllu_data(split=None):
+    """Load CoNLL files, either in full or by specified splits."""
+    # Define paths for each split
+    if split is None:
+        split = ["train", "dev", "test"]
+
+    paths = {
+        "train": train_conllu,
+        "dev": dev_conllu,
+        "test": test_conllu,
+    }
+
+    # Load each specified split
+    split_docs = {}
+    for split_type in split:
+        split_path = paths.get(split_type)
+        if split_path and os.path.exists(split_path):
+            docs = CoNLL.conll2doc(split_path)
+            print(f"CoNLL file: {split_type.capitalize()} split loaded.")
+            split_docs[split_type] = docs
+        else:
+            print(f"Warning: {split_type} split file not found at {split_path}.")
+
+    return split_docs
+
+
+def load_conllu_datasets():
+    """ Load CoNLL-U files for 'train', 'dev', and 'test' splits and return DataFrames for each."""
+    # Define paths for each split
+    paths = {
+        "train": train_conllu,
+        "dev": dev_conllu,
+        "test": test_conllu,
+    }
+
+    dataframes = {}
+
+    for split, path in paths.items():
+        if os.path.exists(path):
+            print(f"Loading {split} data from {path}...")
+            df = read_conllu_file(path)
+            dataframes[split] = df
+            print(f"{split.capitalize()} CoNLL-U files as DataFrame loaded successfully with {len(df)} rows.")
+        else:
+            print(f"Warning: {split} file not found at {path}.")
+
+    return dataframes.get("train"), dataframes.get("dev"), dataframes.get("test")
 
 
 def read_conllu_file(file_path):

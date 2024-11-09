@@ -6,12 +6,13 @@ urls:
 
 paths:
   # Relative input path for data_submission
-  data_file: "../milestone_1/data_submission/edos_labelled_aggregated.csv"
+  data_file: "../data_submission/edos_labelled_aggregated.parquet"
+  data_file_csv: "../data_submission/edos_labelled_aggregated.csv"
 
   # Output directory path
-  output_dir: "../milestone_1/data_submission"
+  output_dir: "../data_submission"
 
-  preprocessing_file: "../milestone_1/run_preprocessing.py"
+  preprocessing_file: "milestone_1/run_preprocessing.py"
 
 files:
   # Main output files within the output directory

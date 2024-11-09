@@ -2,7 +2,7 @@
 # Check if conda is installed
 if ! command -v conda &> /dev/null
 then
-    echo "Conda not found. Please install Anaconda or Miniconda and try again."
+    echo "Conda not found"
     exit 1
 fi
 
@@ -10,18 +10,20 @@ fi
 echo "Creating the conda environment from sexism_detection.yml..."
 conda env create -f sexism_detection.yml
 
-# Activate the environment
-echo "Activating the environment 'sexism_detection'..."
-conda activate sexism_detection || source activate sexism_detection
+# Set the absolute path of config.yaml as an environment variable
+export CONFIG_PATH="$(pwd)/config.yaml"
 
 # Extract the preprocessing file path from config.yaml
 PREPROCESSING_FILE=$(python -c "
 import yaml
-with open('config.yaml', 'r') as f:
+with open('$CONFIG_PATH', 'r') as f:
     config = yaml.safe_load(f)
 print(config['paths']['preprocessing_file'])
 ")
 
-# Run the preprocessing file
+# Add utils directory to PYTHONPATH
+export PYTHONPATH="${PYTHONPATH}:$(pwd)/utils"
+
+# Run the preprocessing file within the conda environment with unbuffered output
 echo "Running the preprocessing script..."
-python "$PREPROCESSING_FILE"
+conda run -n sexism_detection python -u "$PREPROCESSING_FILE"
