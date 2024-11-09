@@ -182,3 +182,68 @@ def load_processed_data(split=None):
             print(f"Warning: {split_type} split file not found.")
 
     return split_dataframes
+
+
+def read_conllu_file(file_path):
+
+    sentences = []
+    current_sentence = []
+    
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line in file:
+            line = line.strip()
+            if line.startswith('#'):
+                continue
+            if line == '':
+                if current_sentence:
+                    sentences.append(current_sentence)
+                    current_sentence = []
+                continue
+            
+            parts = line.split('\t')
+            if len(parts) != 10:
+                continue 
+            
+
+            word_id = parts[0]
+            form = parts[1]
+            lemma = parts[2]
+            upos = parts[3]
+            xpos = parts[4]
+            feats = parts[5]
+            head = parts[6]
+            deprel = parts[7]
+            start_char = parts[8]
+            end_char = parts[9]
+
+            current_sentence.append({
+                'id': word_id,
+                'form': form,
+                'lemma': lemma,
+                'upos': upos,
+                'xpos': xpos,
+                'feats': feats,
+                'head': head,
+                'deprel': deprel,
+                'start_char': start_char,
+                'end_char': end_char,
+            })
+
+        if current_sentence:  # Add the last sentence if it exists
+            sentences.append(current_sentence)
+
+
+    df = pd.DataFrame([{
+        'id': word['id'],
+        'form': word['form'],
+        'lemma': word['lemma'],
+        'upos': word['upos'],
+        'xpos': word['xpos'],
+        'feats': word['feats'],
+        'head': word['head'],
+        'deprel': word['deprel'],
+        'start_char': word['start_char'],
+        'end_char': word['end_char'],
+    } for sentence in sentences for word in sentence])
+
+    return df
