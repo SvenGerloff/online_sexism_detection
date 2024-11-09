@@ -15,6 +15,9 @@ config_path = os.getenv("CONFIG_PATH", "../config.yaml")
 with open(config_path, "r") as f:
     config = yaml.safe_load(f)
 
+# Get the directory where this script is located
+script_dir = os.path.dirname(os.path.realpath(__file__))
+
 # URL from configuration
 data_url = config["urls"]["data_url"]
 # Paths relative to the current working directory
@@ -41,8 +44,7 @@ tqdm.pandas()
 nltk.download('punkt')
 nltk.download('stopwords')
 stanza.download('en')
-nlp_pipeline = stanza.Pipeline(lang='en')
-
+nlp_pipeline = stanza.Pipeline('en', processors='tokenize,lemma,pos')
 
 def load_data_and_prepare():
     # Ensure the directory for the data path exists
@@ -90,6 +92,7 @@ def clean_text(text):
 
 def process_pipeline(text):
     """Clean and process a single text entry to extract lemmas and POS tags."""
+
     cleaned_text, user_count, url_count = clean_text(text)
     doc = nlp_pipeline(cleaned_text)
     lemmas, pos_tags = [], []
@@ -184,6 +187,7 @@ def load_processed_data(split=None):
         split_dataset_path = paths.get(split_type)
         if split_dataset_path and os.path.exists(split_dataset_path):
             split_dataframes[split_type] = pd.read_parquet(split_dataset_path)
+            print(f"df: {split_type.capitalize()} split loaded.")
         else:
             print(f"Warning: {split_type} split file not found.")
 
@@ -215,8 +219,11 @@ def load_conllu_data(split=None):
     return split_docs
 
 
-def load_conllu_datasets():
+def load_conllu_datasets(split=None):
     """ Load CoNLL-U files for 'train', 'dev', and 'test' splits and return DataFrames for each."""
+    if split is None:
+        split = ["train", "dev", "test"]
+
     # Define paths for each split
     paths = {
         "train": train_conllu,
@@ -257,7 +264,6 @@ def read_conllu_file(file_path):
             parts = line.split('\t')
             if len(parts) != 10:
                 continue 
-            
 
             word_id = parts[0]
             form = parts[1]
@@ -285,7 +291,6 @@ def read_conllu_file(file_path):
 
         if current_sentence:  # Add the last sentence if it exists
             sentences.append(current_sentence)
-
 
     df = pd.DataFrame([{
         'id': word['id'],

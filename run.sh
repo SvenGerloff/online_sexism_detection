@@ -11,7 +11,7 @@ echo "Creating the conda environment from sexism_detection.yml..."
 conda env create -f sexism_detection.yml
 
 # Set the absolute path of config.yaml as an environment variable
-export CONFIG_PATH="$(pwd)/config.yaml"
+export CONFIG_PATH="$(pwd)/../config.yaml"
 
 # Extract the preprocessing file path from config.yaml
 PREPROCESSING_FILE=$(python -c "
