@@ -6,6 +6,24 @@ Members: Sven Gerloff, Theresa Mayer, Yasmine Khajjou, Thomas Klar
 
 ## Setup
 
+### Option 1:
+
+To set up the `sexism_detection` environment using the provided `sexism_detection.yml` file.
+
+1. Ensure Conda is Installed
+
+2. Create the Environment: Run the following command in your terminal to create the Conda environment using the `sexism_detection.yml` file:
+
+   ```bash
+   conda env create -f sexism_detection.yml
+
+3. Activate the Environment
+
+   ```bash
+   conda activate sexism_detection
+
+### Option 2:
+
 - Create new python environment
 - conda install -r requirements.txt
 - conda install -c standfordnlp stanza
