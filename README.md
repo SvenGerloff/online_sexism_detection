@@ -12,8 +12,9 @@ Members: Sven Gerloff, Theresa Mayer, Yasmine Khajjou, Thomas Klar
 
 ## File Structure
 
-- All data files go directly into \data
-- Put helper functions into .py files in \utils and import them into notebooks
+- All data files go directly into `data_submission/`
+- Put helper functions into `.py` files in `utils/` and import them into notebooks.
+- The `preprocessing.py` file in `utils/` contains functions for loading, cleaning, and processing the dataset, including splitting the data into train, dev, and test sets and saving the processed output in `.parquet` and `.conllu` formats.
 
 ## Milestone 1
 
@@ -32,3 +33,7 @@ Members: Sven Gerloff, Theresa Mayer, Yasmine Khajjou, Thomas Klar
 ### Data Exploration
 
 In the file `Milestone_1/01_data_exploration.ipynb`, you can find the various data exploration steps we applied. This notebook also includes examples on how to read the stored data and use it.
+
+### Report - Milestone 1 (PDF)
+
+The file `report_milestone1.pdf` provides a detailed description of the preprocessing steps we applied, including the rationale behind each step. It also outlines the main findings from our data exploration.
