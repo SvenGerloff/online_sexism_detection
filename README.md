@@ -1,4 +1,4 @@
-# Online Sexism Detection - Github repository
+# Online Sexism Detection
 
 ## Group 21: Clarity Crew
 
