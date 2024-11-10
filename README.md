@@ -28,3 +28,7 @@ Members: Sven Gerloff, Theresa Mayer, Yasmine Khajjou, Thomas Klar
    - Saves each split as a `.parquet` file and a `.conllu` file in the `data_submission` folder.
 
 **Note**: Processing the full dataset takes approximately 2 hours. To test the function quickly, use the `n_samples` parameter to specify the number of samples per split to process. Other methods, such as `load_processed_data` and `load_conllu_data`, allow loading the processed files for any specified splits or for all splits.
+
+### Data Exploration
+
+In the file `Milestone_1/01_data_exploration.ipynb`, you can find the various data exploration steps we applied. This notebook also includes examples on how to read the stored data and use it.
