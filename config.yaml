@@ -14,6 +14,10 @@ paths:
 
   preprocessing_file: "milestone_1/run_preprocessing.py"
 
+  dl_model_dir: "../milestone_2/model-finetuned_sexism-detection"
+  dl_model_file: "milestone_2/run_dlmodel.py"
+  dl_model_output: "dl_predictions.csv"
+
 files:
   # Main output files within the output directory
   parquet_file: "full_dataset.parquet"
@@ -30,3 +34,14 @@ files:
     test:
       parquet: "test_dataset.parquet"
       conllu: "test_dataset.conllu"
+
+dl_hyperparams:
+  modelname_base: "martin-ha/toxic-comment-model"
+  load_checkpoint: False
+  checkpoint: "../milestone_2/model-finetuned_sexism-detection/checkpoint-1314"
+  seed: 391832
+  batch_size: 64
+  train_epochs: 15
+  early_stopping_epochs: 5
+  eval_metric: "balanced_accuracy"
+

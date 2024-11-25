@@ -7,3 +7,6 @@ nltk
 matplotlib
 plotly
 fastparquet
+transformers
+accelerate
+torch

@@ -11,8 +11,16 @@ dependencies:
   - nltk
   - matplotlib
   - plotly
+  - python-kaleido
   - fastparquet
   - tqdm
+  - yaml
+  - pyyaml
   - pip
   - pip:
       - stanza
+  - torch
+  - transformers
+  - accelerate
+  - datasets
+
