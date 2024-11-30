@@ -16,10 +16,11 @@ dependencies:
   - tqdm
   - yaml
   - pyyaml
+  - seaborn
   - pip
   - pip:
       - stanza
-  - torch
+      - torch
   - transformers
   - accelerate
   - datasets
