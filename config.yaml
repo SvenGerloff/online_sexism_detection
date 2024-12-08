@@ -18,6 +18,13 @@ paths:
   dl_model_file: "milestone_2/run_dlmodel.py"
   dl_model_output: "dl_predictions.csv"
 
+  nb_model_dir: "../milestone_2/models/naivebayes"
+  nb_model_file: "milestone_2/run_naivebayes.py"
+  nb_model_output: "nb_predictions.csv"
+
+  model_dir: "../milestone_2/models"
+
+
 files:
   # Main output files within the output directory
   parquet_file: "full_dataset.parquet"
@@ -45,3 +52,44 @@ dl_hyperparams:
   early_stopping_epochs: 5
   eval_metric: "balanced_accuracy"
 
+nb_params:
+  train: TRUE
+  model_timestamp: "20241208_140820"
+  feature_extraction: "tfidf"
+  tfidf_params:
+    max_features: 5000
+    ngram_range: [1, 2]
+    min_df: 5
+
+naivebayes_params:
+  train: TRUE
+  model_timestamp: "20241208_154427"
+  feature_extraction: "tfidf"
+  tfidf_params:
+    max_features: 5000
+    ngram_range: [1, 2]
+    min_df: 5
+
+xgboost_params:
+  train: TRUE
+  model_timestamp: "20241208_154430"
+  feature_extraction: "tfidf"
+  tfidf_params:
+    max_features: 5000
+    ngram_range: [1, 2]
+    min_df: 5
+  max_depth: 6
+  learning_rate: 0.1
+  n_estimators: 100
+  eval_metric: "logloss"
+
+randomforest_params:
+  train: TRUE
+  model_timestamp: "20241208_154436"
+  feature_extraction: "tfidf"
+  tfidf_params:
+    max_features: 5000
+    ngram_range: [1, 2]
+    min_df: 5
+  n_estimators: 100
+  random_state: 42
