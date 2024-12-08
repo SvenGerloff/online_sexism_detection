@@ -31,6 +31,7 @@ To set up the `sexism_detection` environment using the provided `sexism_detectio
 ## File Structure
 
 - All data files go directly into `data_submission/`
+- All PDF documents (e.g. task descriptions and milestone reports) are located in the `documents/` directory.
 - Put helper functions into `.py` files in `utils/` and import them into notebooks.
 - The `preprocessing.py` file in `utils/` contains functions for loading, cleaning, and processing the dataset, including splitting the data into train, dev, and test sets and saving the processed output in `.parquet` and `.conllu` formats.
 
@@ -54,7 +55,7 @@ In the file `Milestone_1/01_data_exploration.ipynb`, you can find the various da
 
 ### Report - Milestone 1 (PDF)
 
-The file `Milestone_1_Report.pdf` provides a detailed description of the preprocessing steps we applied, including the rationale behind each step. It also outlines the main findings from our data exploration.
+The file `documents/Milestone_1_Report.pdf` provides a detailed description of the preprocessing steps we applied, including the rationale behind each step. It also outlines the main findings from our data exploration.
 
 ## Milestone 2
 
@@ -70,6 +71,6 @@ The file `Milestone_1_Report.pdf` provides a detailed description of the preproc
 
 ### Report - Milestone 2 (PDF)
 
-The file `Milestone_2_Report.pdf` provides a detailed description of the steps we applied, including the rationale behind each one. It also outlines the main findings from our baseline models.
+The file `documents/Milestone_2_Report.pdf` provides a detailed description of the steps we applied, including the rationale behind each one. It also outlines the main findings from our baseline models.
 
 
