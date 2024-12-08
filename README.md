@@ -66,6 +66,8 @@ The file `Milestone_1_Report.pdf` provides a detailed description of the preproc
 
 #### Non-Deep-Learning Models
 
+- Naive Bayes
+
 ### Report - Milestone 2 (PDF)
 
 The file `Milestone_2_Report.pdf` provides a detailed description of the steps we applied, including the rationale behind each one. It also outlines the main findings from our baseline models.
