@@ -58,6 +58,14 @@ The file `Milestone_1_Report.pdf` provides a detailed description of the preproc
 
 ## Milestone 2
 
+### Experiment Setup
+
+### Models
+
+#### Deep-Learning Models
+
+#### Non-Deep-Learning Models
+
 ### Report - Milestone 2 (PDF)
 
 The file `Milestone_2_Report.pdf` provides a detailed description of the steps we applied, including the rationale behind each one. It also outlines the main findings from our baseline models.
