@@ -55,3 +55,11 @@ In the file `Milestone_1/01_data_exploration.ipynb`, you can find the various da
 ### Report - Milestone 1 (PDF)
 
 The file `Milestone_1_Report.pdf` provides a detailed description of the preprocessing steps we applied, including the rationale behind each step. It also outlines the main findings from our data exploration.
+
+## Milestone 2
+
+### Report - Milestone 2 (PDF)
+
+The file `Milestone_2_Report.pdf` provides a detailed description of the steps we applied, including the rationale behind each one. It also outlines the main findings from our baseline models.
+
+
