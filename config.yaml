@@ -53,8 +53,8 @@ dl_hyperparams:
   eval_metric: "balanced_accuracy"
 
 nb_params:
-  train: TRUE
-  model_timestamp: "20241208_140820"
+  train: FALSE
+  model_timestamp: "20241209_165351"
   feature_extraction: "tfidf"
   tfidf_params:
     max_features: 5000

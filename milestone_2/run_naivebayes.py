@@ -46,7 +46,7 @@ def train_model(X_train, y_train, vectorizer=None, word2vec_model=None):
 
 def load_model():
     if MODEL_TIMESTAMP:
-        model_file = f"naive_bayes_model_{MODEL_TIMESTAMP}.pkl"
+        model_file = f"{MODEL_TIMESTAMP}_naive_bayes_model.pkl"
         model_path = os.path.join(MODEL_FOLDER, model_file)
         if not os.path.exists(model_path):
             raise FileNotFoundError(f"Model file with timestamp {MODEL_TIMESTAMP} not found: {model_path}")
@@ -176,15 +176,15 @@ if TRAIN_MODEL:
     #print(f"Model saved saved to {results_file}")
     print("******************************")
 else:
-    print("Loading existing model")
-    model, transformer = load_model()
+    model, transformer = load_model()#
+    save_dataset_output(model, transformer, X_test, y_test, "Test")
 
-    print("\nEvaluating existing model on all datasets:")
+    print("\nEvaluating model on all datasets:")
     print("\n##### Train Dataset #####")
     evaluate_model(model, transformer, X_train, y_train, "Train", file_writer=None)
-    print("\n##### Test Dataset #####")
-    evaluate_model(model, transformer, X_test, y_test, "Test", file_writer=None)
     print("\n##### Dev Dataset #####")
     evaluate_model(model, transformer, X_dev, y_dev, "Dev", file_writer=None)
+    print("\n##### Test Dataset #####")
+    evaluate_model(model, transformer, X_test, y_test, "Test", file_writer=None)
 
     print("****************************** \n")
