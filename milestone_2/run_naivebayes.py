@@ -21,6 +21,9 @@ TFIDF_PARAMS = config['nb_params'].get('tfidf_params', {})
 MODEL_FOLDER = config['paths']['nb_model_dir']
 CURRENT_DATETIME = datetime.now().strftime("%Y%m%d_%H%M%S")
 MODEL_TIMESTAMP = config["nb_params"].get("model_timestamp")
+OUTPUT_FOLDER = config['paths']['output_dir']
+
+print("********** Naive Bayes *******")
 
 def train_model(X_train, y_train, vectorizer=None, word2vec_model=None):
     if VECTOR_TYPE == "tfidf":
@@ -108,22 +111,28 @@ def save_dataset_output(model, transformer, X_data, y_data, dataset_name):
         pass
 
     y_pred = model.predict(transformer.transform(X_data))
+    predicted_probs = model.predict_proba(transformer.transform(X_data))
 
     df_output = pd.DataFrame({
-        "lem_tokens": X_data,
+        "lem": X_data,
         "model_tokens": model_tokens_list,
+        "label": y_data,
         "y_pred": y_pred,
-        "y_true": y_data
+        "prob_0":  predicted_probs[:, 0],
+        "prob_1": predicted_probs[:, 1],
     })
 
+    #file_output = os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_{dataset_name.lower()}_output.csv")
+    file_output = os.path.join(OUTPUT_FOLDER, f"nb_prediction.csv")
+
     df_output.to_csv(
-        os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_{dataset_name.lower()}_output.csv"),
+        file_output,
         index=False,
         encoding='utf-8',
         quoting=csv.QUOTE_MINIMAL,
         quotechar="'"
     )
-    print(f"{dataset_name} dataset output saved.")
+    print(f"{dataset_name} prediction saved to {file_output}")
 
 # Load data
 df = load_processed_data()
@@ -147,24 +156,25 @@ elif VECTOR_TYPE == "word2vec":
 if TRAIN_MODEL:
     print("Training the model")
     model, transformer = train_model(X_train, y_train, vectorizer=vectorizer)
-    results_file = os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_naive_bayes_results.txt")
-    with open(results_file, "w") as file_writer:
-        file_writer.write("******* Training Parameters *******\n")
-        file_writer.write(f"Feature Extraction: {VECTOR_TYPE}\n")
-        if VECTOR_TYPE == "tfidf":
-            file_writer.write(f"TFIDF Parameters: {TFIDF_PARAMS}\n")
-        file_writer.write(f"Training Samples: {len(X_train)}\n")
-        file_writer.write("************************************\n")
+    #results_file = os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_naive_bayes_results.txt")
+    #with open(results_file, "w") as file_writer:
+    #    file_writer.write("******* Training Parameters *******\n")
+    #    file_writer.write(f"Feature Extraction: {VECTOR_TYPE}\n")
+    #    if VECTOR_TYPE == "tfidf":
+    #        file_writer.write(f"TFIDF Parameters: {TFIDF_PARAMS}\n")
+    #    file_writer.write(f"Training Samples: {len(X_train)}\n")
+    #    file_writer.write("************************************\n")
 
-        metrics_train = evaluate_model(model, transformer, X_train, y_train, "Train", file_writer)
-        metrics_test = evaluate_model(model, transformer, X_test, y_test, "Test", file_writer)
-        metrics_dev = evaluate_model(model, transformer, X_dev, y_dev, "Dev", file_writer)
+    #    metrics_train = evaluate_model(model, transformer, X_train, y_train, "Train", file_writer)
+    #    metrics_test = evaluate_model(model, transformer, X_test, y_test, "Test", file_writer)
+    #    metrics_dev = evaluate_model(model, transformer, X_dev, y_dev, "Dev", file_writer)
 
-    save_dataset_output(model, transformer, X_train, y_train, "Train")
+    #save_dataset_output(model, transformer, X_train, y_train, "Train")
     save_dataset_output(model, transformer, X_test, y_test, "Test")
-    save_dataset_output(model, transformer, X_dev, y_dev, "Dev")
+    #save_dataset_output(model, transformer, X_dev, y_dev, "Dev")
 
-    print(f"Results and evaluation metrics saved to {results_file}")
+    #print(f"Model saved saved to {results_file}")
+    print("******************************")
 else:
     print("Loading existing model")
     model, transformer = load_model()
@@ -177,6 +187,4 @@ else:
     print("\n##### Dev Dataset #####")
     evaluate_model(model, transformer, X_dev, y_dev, "Dev", file_writer=None)
 
-    save_dataset_output(model, transformer, X_train, y_train, "Train")
-    save_dataset_output(model, transformer, X_test, y_test, "Test")
-    save_dataset_output(model, transformer, X_dev, y_dev, "Dev")
+    print("****************************** \n")

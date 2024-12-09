@@ -35,8 +35,8 @@ def load_processed_data(split=None):
         split_dataset_path = paths.get(split_type)
         if split_dataset_path and os.path.exists(split_dataset_path):
             split_dataframes[split_type] = pd.read_parquet(split_dataset_path)
-            print(f"df: {split_type.capitalize()} split loaded.")
+            #print(f"df: {split_type.capitalize()} split loaded.")
         else:
             print(f"Warning: {split_type} split file not found.")
-
+    print(f"Data loaded")
     return split_dataframes
