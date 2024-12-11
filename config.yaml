@@ -23,6 +23,8 @@ paths:
   nb_model_output: "nb_predictions.csv"
 
   model_dir: "../milestone_2/models"
+  lr_model_dir: "./models/logistic_regression"
+  svm_model_dir: "./models/svm"
 
 
 files:
@@ -60,3 +62,41 @@ nb_params:
     max_features: 5000
     ngram_range: [1, 2]
     min_df: 5
+
+lr_params1:
+  train: true  # Set to true if you want to train the model
+  model_timestamp: "20241209_165351"
+  model_type: "tf-idf_logistic_regression" 
+  feature_extraction: "tfidf"  
+  tfidf_params:
+    max_features: 5000
+    ngram_range: [1, 2]
+    min_df: 5
+  logistic_params:
+    max_iter: 500
+    class_weight: "balanced"
+  smote_params:  
+    sampling_strategy: "auto"  
+    k_neighbors: 5  
+    random_state: 42  
+
+lr_params2:
+  train: true  
+  model_timestamp: "20241209_165352"
+  model_type: "word2vec_logistic_regression"  
+  feature_extraction: "word2vec"
+  logistic_params:
+    max_iter: 500
+    class_weight: "balanced"
+  smote_params: 
+    sampling_strategy: "auto"  
+    k_neighbors: 5  
+    random_state: 42
+
+svm_params:
+  random_state: 42
+  class_weight: "balanced"
+  probability: true
+  kernel: "rbf"  # You can specify the kernel type (e.g., 'linear', 'poly', 'rbf', 'sigmoid')
+  C: 1.0  # Regularization parameter
+  gamma: "scale"  # Kernel coefficient for 'rbf', 'poly', and 'sigmoid'

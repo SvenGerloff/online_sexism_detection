@@ -11,21 +11,20 @@ from imblearn.over_sampling import SMOTE
 from gensim.models import Word2Vec
 import numpy as np
 from datetime import datetime
-import wandb
 
 # Load configuration from YAML
-config_path = os.getenv("CONFIG_PATH", "../config.yaml")
+config_path = os.getenv("CONFIG_PATH", "config.yaml")
 with open(config_path, "r") as f:
     config = yaml.safe_load(f)
 
-MODEL_TYPE = config['basic_params']['model_type']  # "logistic_regression", "word2vec_logistic_regression"
-TRAIN_MODEL = config['basic_params'].get("train", False)
-VECTOR_TYPE = config['basic_params'].get("feature_extraction", "tfidf")
-TFIDF_PARAMS = config['basic_params'].get('tfidf_params', {})
-SMOTE_PARAMS = config['basic_params'].get('smote_params', {})
-MODEL_FOLDER = config['paths']['basic_model_dir']
+MODEL_TYPE = config['lr_params1']['model_type']  # "tf-idf_logistic_regression", or "word2vec_logistic_regression"(using lr_params2)
+TRAIN_MODEL = config['lr_params1'].get("train", False)
+VECTOR_TYPE = config['lr_params1'].get("feature_extraction", "tfidf")
+TFIDF_PARAMS = config['lr_params1'].get('tfidf_params', {})
+SMOTE_PARAMS = config['lr_params1'].get('smote_params', {})
+MODEL_FOLDER = config['paths']['lr_model_dir']
 CURRENT_DATETIME = datetime.now().strftime("%Y%m%d_%H%M%S")
-MODEL_TIMESTAMP = config["basic_params"].get("model_timestamp")
+MODEL_TIMESTAMP = config["lr_params1"].get("model_timestamp")
 OUTPUT_FOLDER = config['paths']['output_dir']
 
 print(f"********** Logistic Regression *******")
@@ -100,35 +99,41 @@ def evaluate_model(model, transformer, X_data, y_data, dataset_name, file_writer
     print("Confusion Matrix:")
     print(np.array(metrics["confusion_matrix"]))
 
-def vectorize_sentences(sentences, model):
-    return np.array([np.mean([model.wv[word] for word in sentence.split() if word in model.wv], axis=0) for sentence in sentences])
 
-def main():
-    # Load your dataset here
-    df = load_processed_data()
-    train_data = df["train"]
-    test_data = df["test"]
-    dev_data = df["dev"]
 
-    X_train, y_train = train_data["lemma"], train_data["label"]
-    X_test, y_test = test_data["lemma"], test_data["label"]
-    X_dev, y_dev = dev_data["lemma"], dev_data["label"]
 
-    vectorizer = TfidfVectorizer(**TFIDF_PARAMS) if VECTOR_TYPE == "tfidf" else None
-    word2vec_model = Word2Vec.load(config['paths']['word2vec_model_path']) if VECTOR_TYPE == "word2vec" else None
+if TRAIN_MODEL:
+    print("Training the model")
+    model, transformer = train_model(X_train, y_train, vectorizer=vectorizer)
+    #results_file = os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_naive_bayes_results.txt")
+    #with open(results_file, "w") as file_writer:
+    #    file_writer.write("******* Training Parameters *******\n")
+    #    file_writer.write(f"Feature Extraction: {VECTOR_TYPE}\n")
+    #    if VECTOR_TYPE == "tfidf":
+    #        file_writer.write(f"TFIDF Parameters: {TFIDF_PARAMS}\n")
+    #    file_writer.write(f"Training Samples: {len(X_train)}\n")
+    #    file_writer.write("************************************\n")
 
-    if TRAIN_MODEL:
-        model, transformer = train_model(X_train, y_train, vectorizer, word2vec_model)
-    else:
-        model, transformer = load_model()
+    #    metrics_train = evaluate_model(model, transformer, X_train, y_train, "Train", file_writer)
+    #    metrics_test = evaluate_model(model, transformer, X_test, y_test, "Test", file_writer)
+    #    metrics_dev = evaluate_model(model, transformer, X_dev, y_dev, "Dev", file_writer)
 
-    with open(os.path.join(OUTPUT_FOLDER, f"{CURRENT_DATETIME}_evaluation_results.csv"), "w", newline='') as csvfile:
-        file_writer = csv.writer(csvfile)
-        file_writer.writerow(["Dataset", "F1 Score", "Balanced Accuracy", "Accuracy"])
-        
-        evaluate_model(model, transformer, X_train, y_train, "Training Set", file_writer)
-        evaluate_model(model, transformer, X_test, y_test, "Test Set", file_writer)
-        evaluate_model(model, transformer, X_dev, y_dev, "Dev Set", file_writer)
+    #save_dataset_output(model, transformer, X_train, y_train, "Train")
+    save_dataset_output(model, transformer, X_test, y_test, "Test")
+    #save_dataset_output(model, transformer, X_dev, y_dev, "Dev")
 
-if __name__ == "__main__":
-    main()
+    #print(f"Model saved saved to {results_file}")
+    print("******************************")
+else:
+    model, transformer = load_model()#
+    save_dataset_output(model, transformer, X_test, y_test, "Test")
+
+    print("\nEvaluating model on all datasets:")
+    print("\n##### Train Dataset #####")
+    evaluate_model(model, transformer, X_train, y_train, "Train", file_writer=None)
+    print("\n##### Dev Dataset #####")
+    evaluate_model(model, transformer, X_dev, y_dev, "Dev", file_writer=None)
+    print("\n##### Test Dataset #####")
+    evaluate_model(model, transformer, X_test, y_test, "Test", file_writer=None)
+
+    print("****************************** \n")

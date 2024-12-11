@@ -1,0 +1,17 @@
+{"time":"2024-12-10T17:46:52.939697+01:00","level":"INFO","msg":"using version","core version":"0.19.0"}
+{"time":"2024-12-10T17:46:52.939792+01:00","level":"INFO","msg":"created symlink","path":"/Users/mac/Downloads/online_sexism_detection/milestone_2/wandb/run-20241210_174652-yq4w8d1f/logs/debug-core.log"}
+{"time":"2024-12-10T17:46:52.966047+01:00","level":"INFO","msg":"created new stream","id":"yq4w8d1f"}
+{"time":"2024-12-10T17:46:52.966121+01:00","level":"INFO","msg":"stream: started","id":"yq4w8d1f"}
+{"time":"2024-12-10T17:46:52.966166+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"yq4w8d1f"}
+{"time":"2024-12-10T17:46:52.966227+01:00","level":"INFO","msg":"sender: started","stream_id":"yq4w8d1f"}
+{"time":"2024-12-10T17:46:52.96627+01:00","level":"INFO","msg":"handler: started","stream_id":"yq4w8d1f"}
+{"time":"2024-12-10T17:46:53.307879+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-10T17:47:10.949751+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-10T17:47:10.950078+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-10T17:47:11.736227+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-10T17:47:11.950671+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history, summary, console logs","runtime_seconds":0.214112265}],"total_operations":1}}
+{"time":"2024-12-10T17:47:13.160411+01:00","level":"INFO","msg":"stream: closing","id":"yq4w8d1f"}
+{"time":"2024-12-10T17:47:13.160654+01:00","level":"INFO","msg":"handler: closed","stream_id":"yq4w8d1f"}
+{"time":"2024-12-10T17:47:13.160709+01:00","level":"INFO","msg":"sender: closed","stream_id":"yq4w8d1f"}
+{"time":"2024-12-10T17:47:13.160696+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"yq4w8d1f"}
+{"time":"2024-12-10T17:47:13.160957+01:00","level":"INFO","msg":"stream: closed","id":"yq4w8d1f"}

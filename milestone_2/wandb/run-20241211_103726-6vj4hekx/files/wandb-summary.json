@@ -1,0 +1,1 @@
+{"balanced_accuracy":0.6806964717090266,"accuracy":0.83375,"_timestamp":1.733922814855326e+09,"_runtime":12968.594838,"_step":5,"tfidf_params":{"ngram_range":[1,2],"min_df":5,"max_features":10000},"f1":0.5280340667139816,"_wandb":{"runtime":12969}}

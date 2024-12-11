@@ -1,0 +1,11 @@
+2024-12-11 10:30:23,158 INFO    MainThread:68434 [wandb_setup.py:_flush():68] Current SDK version is 0.19.0
+2024-12-11 10:30:23,159 INFO    MainThread:68434 [wandb_setup.py:_flush():68] Configure stats pid to 68434
+2024-12-11 10:30:23,159 INFO    MainThread:68434 [wandb_setup.py:_flush():68] Loading settings from /Users/mac/.config/wandb/settings
+2024-12-11 10:30:23,159 INFO    MainThread:68434 [wandb_setup.py:_flush():68] Loading settings from /Users/mac/Downloads/online_sexism_detection/milestone_2/wandb/settings
+2024-12-11 10:30:23,159 INFO    MainThread:68434 [wandb_setup.py:_flush():68] Loading settings from environment variables
+2024-12-11 10:30:23,159 INFO    MainThread:68434 [wandb_init.py:_log_setup():528] Logging user logs to /Users/mac/Downloads/online_sexism_detection/milestone_2/wandb/run-20241211_103023-y9pt9n6r/logs/debug.log
+2024-12-11 10:30:23,160 INFO    MainThread:68434 [wandb_init.py:_log_setup():529] Logging internal logs to /Users/mac/Downloads/online_sexism_detection/milestone_2/wandb/run-20241211_103023-y9pt9n6r/logs/debug-internal.log
+2024-12-11 10:30:23,160 INFO    MainThread:68434 [wandb_init.py:init():639] calling init triggers
+2024-12-11 10:30:23,160 INFO    MainThread:68434 [wandb_init.py:init():645] wandb.init called with sweep_config: {}
+config: {}
+2024-12-11 10:30:23,160 INFO    MainThread:68434 [wandb_init.py:init():683] wandb.init() called when a run is still active

@@ -1,0 +1,1 @@
+{"balanced_accuracy":0.5001650165016501,"_wandb":{"runtime":28654},"accuracy":0.24275,"_timestamp":1.733951474062036e+09,"_runtime":28654.545949,"_step":5,"word2vec_params":{"window":20,"min_count":1,"vector_size":300},"f1":0.3904206077681626}

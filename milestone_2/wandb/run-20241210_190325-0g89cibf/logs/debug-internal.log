@@ -1,0 +1,70 @@
+{"time":"2024-12-10T19:03:25.516856+01:00","level":"INFO","msg":"using version","core version":"0.19.0"}
+{"time":"2024-12-10T19:03:25.516936+01:00","level":"INFO","msg":"created symlink","path":"/Users/mac/Downloads/online_sexism_detection/milestone_2/wandb/run-20241210_190325-0g89cibf/logs/debug-core.log"}
+{"time":"2024-12-10T19:03:25.629673+01:00","level":"INFO","msg":"created new stream","id":"0g89cibf"}
+{"time":"2024-12-10T19:03:25.629802+01:00","level":"INFO","msg":"stream: started","id":"0g89cibf"}
+{"time":"2024-12-10T19:03:25.629785+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"0g89cibf"}
+{"time":"2024-12-10T19:03:25.629865+01:00","level":"INFO","msg":"handler: started","stream_id":"0g89cibf"}
+{"time":"2024-12-10T19:03:25.629977+01:00","level":"INFO","msg":"sender: started","stream_id":"0g89cibf"}
+{"time":"2024-12-10T19:03:26.200895+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-10T19:07:57.293475+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": read tcp 128.131.192.97:59433->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2024-12-10T19:14:37.943498+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:14:40.306054+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:14:45.161905+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:14:55.174764+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:15:10.601796+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2024-12-10T19:15:12.365805+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:21:31.248474+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:21:52.237828+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2024-12-10T19:21:57.71203+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 128.131.192.97:59370->35.186.228.49:443: read: can't assign requested address"}
+{"time":"2024-12-10T19:22:01.742643+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:22:11.086839+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:22:31.097792+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:22:31.273309+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:23:10.17399+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:44:55.271298+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T19:45:34.203403+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T20:00:00.697374+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:12:41.984849+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:13:03.082064+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:13:41.987723+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:14:03.103201+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:14:42.009659+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:15:03.122509+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:15:42.016781+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:16:03.125039+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:16:42.019305+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:17:03.129032+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-10T23:17:42.022176+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T00:00:48.331304+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T00:01:28.61236+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T00:01:31.003046+01:00","level":"WARN","msg":"sender: taking a long time","seconds":600.000345798,"work":"WorkRecord(*service_go_proto.Request_StopStatus); Control(local:true mailbox_slot:\"burk2v3p1i6w\" connection_id:\"127.0.0.1:59368\")"}
+{"time":"2024-12-11T00:34:08.569986+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T00:34:36.139969+01:00","level":"INFO","msg":"sender: succeeded after taking longer than expected","seconds":658.060916892,"work":"WorkRecord(*service_go_proto.Request_StopStatus); Control(local:true mailbox_slot:\"burk2v3p1i6w\" connection_id:\"127.0.0.1:59368\")"}
+{"time":"2024-12-11T00:34:58.812693+01:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-12-11T02:37:15.099767+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 10.10.7.76:59689->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2024-12-11T04:37:23.568245+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 10.10.7.76:59754->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2024-12-11T06:38:48.487662+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 10.10.7.76:59816->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2024-12-11T07:11:35.70689+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 10.10.7.76:59885->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2024-12-11T08:12:14.976218+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 10.10.7.76:59914->35.186.228.49:443: read: connection reset by peer"}
+{"time":"2024-12-11T10:00:00.912734+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:00:05.459944+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:00:05.460075+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:00:07.82346+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:00:12.550863+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:00:14.417437+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:00:21.685875+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:28:29.024386+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:28:36.05498+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:29:03.658249+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:29:10.09236+01:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/online_sexism_detection/online_sexism_detection/0g89cibf/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2024-12-11T10:30:06.060205+01:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-12-11T10:30:06.110391+01:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-12-11T10:30:06.149463+01:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-12-11T10:30:06.363156+01:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-12-11T10:30:10.850311+01:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-12-11T10:30:11.90333+01:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-12-11T10:30:16.49055+01:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-12-11T10:30:16.600198+01:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-12-11T10:30:20.345282+01:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-12-11T10:30:20.349221+01:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-12-11T10:30:22.8508+01:00","level":"INFO","msg":"Resuming system monitor"}

@@ -1,0 +1,19 @@
+{"time":"2024-12-10T17:45:50.913022+01:00","level":"INFO","msg":"using version","core version":"0.19.0"}
+{"time":"2024-12-10T17:45:50.91372+01:00","level":"INFO","msg":"created symlink","path":"/Users/mac/Downloads/online_sexism_detection/milestone_2/wandb/run-20241210_174550-66k5l1b4/logs/debug-core.log"}
+{"time":"2024-12-10T17:45:50.96368+01:00","level":"INFO","msg":"created new stream","id":"66k5l1b4"}
+{"time":"2024-12-10T17:45:50.963796+01:00","level":"INFO","msg":"stream: started","id":"66k5l1b4"}
+{"time":"2024-12-10T17:45:50.964025+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"66k5l1b4"}
+{"time":"2024-12-10T17:45:50.964421+01:00","level":"INFO","msg":"handler: started","stream_id":"66k5l1b4"}
+{"time":"2024-12-10T17:45:50.964458+01:00","level":"INFO","msg":"sender: started","stream_id":"66k5l1b4"}
+{"time":"2024-12-10T17:45:52.035792+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-10T17:45:56.321319+01:00","level":"INFO","msg":"Pausing system monitor"}
+{"time":"2024-12-10T17:46:15.290869+01:00","level":"INFO","msg":"Resuming system monitor"}
+{"time":"2024-12-10T17:46:31.442402+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-10T17:46:31.465304+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-10T17:46:32.448371+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading config.yaml","runtime_seconds":0.37321643,"progress":"542B/542B"},{"desc":"uploading output.log","runtime_seconds":0.373203881,"progress":"9.0KB/9.0KB"}],"total_operations":2}}
+{"time":"2024-12-10T17:46:32.466843+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-10T17:46:33.936606+01:00","level":"INFO","msg":"stream: closing","id":"66k5l1b4"}
+{"time":"2024-12-10T17:46:33.936721+01:00","level":"INFO","msg":"handler: closed","stream_id":"66k5l1b4"}
+{"time":"2024-12-10T17:46:33.936749+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"66k5l1b4"}
+{"time":"2024-12-10T17:46:33.937008+01:00","level":"INFO","msg":"sender: closed","stream_id":"66k5l1b4"}
+{"time":"2024-12-10T17:46:33.93703+01:00","level":"INFO","msg":"stream: closed","id":"66k5l1b4"}
