@@ -59,7 +59,16 @@ The file `documents/Milestone_1_Report.pdf` provides a detailed description of t
 
 ## Milestone 2
 
-### Experiment Setup
+### Experiment Tracking and Model Training
+
+We use [Weights and Biases](https://wandb.ai) to track and analyze all our experiments. The experiments are conducted using Jupyter Notebook files, and the best settings are written into a configuration file for consistency and reproducibility.
+
+For each model, we have implemented a Python script with the following capabilities:
+
+1. **Train or Load a Model**: The script can either train a new model based on the configuration file or load a pre-trained model.
+2. **Generate Predictions**: After training or loading the model, the script predicts the labels for the test data and writes the results to the `data_submission` folder.
+
+This setup ensures a streamlined workflow for model training, evaluation, and generating prediction outputs.
 
 ### Models
 
