@@ -22,12 +22,6 @@ To set up the `sexism_detection` environment using the provided `sexism_detectio
    ```bash
    conda activate sexism_detection
 
-### Option 2:
-
-- Create new python environment
-- conda install -r requirements.txt
-- conda install -c standfordnlp stanza
-
 ## File Structure
 
 - All data files go directly into `data_submission/`
