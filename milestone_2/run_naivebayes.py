@@ -1,4 +1,6 @@
 import os
+import re
+import ast
 import json
 import csv
 import pandas as pd
@@ -25,6 +27,29 @@ OUTPUT_FOLDER = config['paths']['output_dir']
 
 print("********** Naive Bayes *******")
 
+surrogate_pattern = re.compile(r'[\ud800-\udfff]')
+
+def remove_surrogates(s):
+    if isinstance(s, str):
+        return surrogate_pattern.sub('', s)
+    return s
+
+def to_token_list(x):
+    if isinstance(x, list):
+        return x
+    elif isinstance(x, str):
+        s = x.strip()
+        if s.startswith('[') and s.endswith(']'):
+            try:
+                parsed = ast.literal_eval(s)
+                if isinstance(parsed, list):
+                    return parsed
+            except:
+                pass
+
+        return s.split()
+    return str(x).split()
+
 def train_model(X_train, y_train, vectorizer=None, word2vec_model=None):
     if VECTOR_TYPE == "tfidf":
         X_train_transformed = vectorizer.fit_transform(X_train)
@@ -37,7 +62,7 @@ def train_model(X_train, y_train, vectorizer=None, word2vec_model=None):
 
     os.makedirs(MODEL_FOLDER, exist_ok=True)
 
-    model_file = os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_naive_bayes_model.pkl")
+    model_file = os.path.join(MODEL_FOLDER, f"naive_bayes_model_{CURRENT_DATETIME}.pkl")
     with open(model_file, "wb") as f:
         pickle.dump((model, transformer), f)
     print(f"Model trained and saved as {model_file}")
@@ -98,6 +123,7 @@ def evaluate_model(model, transformer, X_data, y_data, dataset_name, file_writer
     return metrics
 
 def save_dataset_output(model, transformer, X_data, y_data, dataset_name):
+    lem_tokens_lists = X_data.apply(to_token_list)
 
     if VECTOR_TYPE == "tfidf":
         X_transformed = transformer.transform(X_data)
@@ -111,10 +137,10 @@ def save_dataset_output(model, transformer, X_data, y_data, dataset_name):
         pass
 
     y_pred = model.predict(transformer.transform(X_data))
-    predicted_probs = model.predict_proba(transformer.transform(X_data))
+    lem_tokens_json = lem_tokens_lists.apply(lambda t: json.dumps(t))
 
     df_output = pd.DataFrame({
-        "lem": X_data,
+        "lem_tokens": lem_tokens_json,
         "model_tokens": model_tokens_list,
         "label": y_data,
         "y_pred": y_pred,
@@ -122,15 +148,16 @@ def save_dataset_output(model, transformer, X_data, y_data, dataset_name):
         "prob_1": predicted_probs[:, 1],
     })
 
-    #file_output = os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_{dataset_name.lower()}_output.csv")
-    file_output = os.path.join(OUTPUT_FOLDER, f"nb_prediction.csv")
+    df_output = df_output.applymap(remove_surrogates)
 
     df_output.to_csv(
-        file_output,
+        os.path.join(MODEL_FOLDER, f"{dataset_name}_output_{CURRENT_DATETIME}.csv"),
         index=False,
         encoding='utf-8',
+        sep=',',
         quoting=csv.QUOTE_MINIMAL,
-        quotechar="'"
+        quotechar="'",
+        escapechar='\\'
     )
     print(f"{dataset_name} prediction saved to {file_output}")
 
@@ -156,14 +183,14 @@ elif VECTOR_TYPE == "word2vec":
 if TRAIN_MODEL:
     print("Training the model")
     model, transformer = train_model(X_train, y_train, vectorizer=vectorizer)
-    #results_file = os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_naive_bayes_results.txt")
-    #with open(results_file, "w") as file_writer:
-    #    file_writer.write("******* Training Parameters *******\n")
-    #    file_writer.write(f"Feature Extraction: {VECTOR_TYPE}\n")
-    #    if VECTOR_TYPE == "tfidf":
-    #        file_writer.write(f"TFIDF Parameters: {TFIDF_PARAMS}\n")
-    #    file_writer.write(f"Training Samples: {len(X_train)}\n")
-    #    file_writer.write("************************************\n")
+    results_file = os.path.join(MODEL_FOLDER, f"naive_bayes_results_{CURRENT_DATETIME}.txt")
+    with open(results_file, "w") as file_writer:
+        file_writer.write("******* Training Parameters *******\n")
+        file_writer.write(f"Feature Extraction: {VECTOR_TYPE}\n")
+        if VECTOR_TYPE == "tfidf":
+            file_writer.write(f"TFIDF Parameters: {TFIDF_PARAMS}\n")
+        file_writer.write(f"Training Samples: {len(X_train)}\n")
+        file_writer.write("************************************\n")
 
     #    metrics_train = evaluate_model(model, transformer, X_train, y_train, "Train", file_writer)
     #    metrics_test = evaluate_model(model, transformer, X_test, y_test, "Test", file_writer)

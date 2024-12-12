@@ -18,7 +18,7 @@ paths:
   dl_model_file: "milestone_2/run_dlmodel.py"
   dl_model_output: "dl_predictions.csv"
 
-  nb_model_dir: "../milestone_2/naivebayes"
+  nb_model_dir: "../milestone_2/models/naivebayes"
   nb_model_file: "milestone_2/run_naivebayes.py"
   nb_model_output: "nb_predictions.csv"
 
