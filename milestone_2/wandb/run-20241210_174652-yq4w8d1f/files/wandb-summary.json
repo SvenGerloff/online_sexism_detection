@@ -1,1 +1,0 @@
-{"f1":0,"balanced_accuracy":0.5,"accuracy":0.7575,"_timestamp":1.733849230944318e+09,"_runtime":18.066803,"_step":5,"_wandb":{"runtime":18},"word2vec_params":{"window":20,"min_count":1,"vector_size":300}}

@@ -1,1 +1,0 @@
-{"_wandb":{"runtime":21},"accuracy":0.815,"_timestamp":1.733849191420911e+09,"_runtime":21.530821715,"_step":6,"tfidf_params":{"min_df":5,"max_features":10000,"ngram_range":[1,2]},"f1":0.6336633663366337,"balanced_accuracy":0.7622401415399271}
