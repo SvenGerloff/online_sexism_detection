@@ -68,15 +68,17 @@ For each model, we have implemented a Python script with the following capabilit
 1. **Train or Load a Model**: The script can either train a new model based on the configuration file or load a pre-trained model.
 2. **Generate Predictions**: After training or loading the model, the script predicts the labels for the test data and writes the results to the `data_submission` folder.
 
-This setup ensures a streamlined workflow for model training, evaluation, and generating prediction outputs.
-
 ### Models
 
 #### Deep-Learning Models
 
+- DilBERT
+
 #### Non-Deep-Learning Models
 
-- Naive Bayes
+- Multinomial Naive Bayes
+- Support Vector Classification
+- LogisticRegression
 
 ### Report - Milestone 2 (PDF)
 
