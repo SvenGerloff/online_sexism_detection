@@ -19,7 +19,7 @@ dependencies:
   - pip
   - pip:
       - stanza
-  - torch
+  - pytorch
   - transformers
   - accelerate
   - datasets
