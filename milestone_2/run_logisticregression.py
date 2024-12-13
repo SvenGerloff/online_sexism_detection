@@ -11,9 +11,13 @@ from imblearn.over_sampling import SMOTE
 from gensim.models import Word2Vec
 import numpy as np
 from datetime import datetime
+import sys
+# Import functions from preprocessing module
+sys.path.append('..')
+from utils.load_data import load_processed_data
 
 # Load configuration from YAML
-config_path = os.getenv("CONFIG_PATH", "config.yaml")
+config_path = os.getenv("CONFIG_PATH", "../config.yaml")
 with open(config_path, "r") as f:
     config = yaml.safe_load(f)
 
@@ -43,7 +47,7 @@ def train_model(X_train, y_train, vectorizer=None, word2vec_model=None):
 
     # Apply SMOTE if specified in the configuration
     if SMOTE_PARAMS:
-        smote = SMOTE(random_state=42, **SMOTE_PARAMS)
+        smote = SMOTE(random_state=42, **smote_params)
         X_train_transformed, y_train = smote.fit_resample(X_train_transformed, y_train)
 
     model.fit(X_train_transformed, y_train)
@@ -88,7 +92,17 @@ def evaluate_model(model, transformer, X_data, y_data, dataset_name, file_writer
     }
 
     if file_writer:
-        file_writer.writerow([dataset_name, metrics["f1"], metrics["balanced_accuracy"], metrics["accuracy"]])
+        file_writer.write("\n")
+        file_writer.write(f"******* {dataset_name} Metrics *******\n")
+        file_writer.write(f"Accuracy: {metrics['accuracy']:.4f}\n")
+        file_writer.write(f"Balanced Accuracy: {metrics['balanced_accuracy']:.4f}\n")
+        file_writer.write(f"F1 Score: {metrics['f1']:.4f}\n")
+        file_writer.write("\nClassification Report:\n")
+        file_writer.write(metrics["classification_report"])
+        file_writer.write("\nConfusion Matrix:\n")
+        for row in metrics["confusion_matrix"]:
+            file_writer.write(f"{row}\n")
+        file_writer.write("************************************\n")
     
     print(f"Evaluation metrics for {dataset_name}:")
     print(f"F1 Score: {metrics['f1']}")
@@ -99,24 +113,80 @@ def evaluate_model(model, transformer, X_data, y_data, dataset_name, file_writer
     print("Confusion Matrix:")
     print(np.array(metrics["confusion_matrix"]))
 
+def save_dataset_output(model, transformer, X_data, y_data, dataset_name):
+    lem_tokens_lists = X_data.apply(to_token_list)
 
+    if VECTOR_TYPE == "tfidf":
+        X_transformed = transformer.transform(X_data)
+        feature_names = transformer.get_feature_names_out()
+        model_tokens_list = []
+        for i in range(X_transformed.shape[0]):
+            token_indices = X_transformed[i].nonzero()[1]
+            token_list = [feature_names[idx] for idx in token_indices]
+            model_tokens_list.append(json.dumps(token_list))
+    elif VECTOR_TYPE == "word2vec":
+        pass
 
+    y_pred = model.predict(transformer.transform(X_data))
+    lem_tokens_json = lem_tokens_lists.apply(lambda t: json.dumps(t))
+
+    df_output = pd.DataFrame({
+        "lem_tokens": lem_tokens_json,
+        "model_tokens": model_tokens_list,
+        "label": y_data,
+        "y_pred": y_pred,
+        "prob_0":  predicted_probs[:, 0],
+        "prob_1": predicted_probs[:, 1],
+    })
+
+    df_output = df_output.applymap(remove_surrogates)
+    file_output = os.path.join(OUTPUT_FOLDER, f"lr_prediction.csv")
+
+    df_output.to_csv(
+        os.path.join(MODEL_FOLDER, f"{dataset_name}_output_{CURRENT_DATETIME}.csv"),
+        index=False,
+        encoding='utf-8',
+        sep=',',
+        quoting=csv.QUOTE_MINIMAL,
+        quotechar="'",
+        escapechar='\\'
+    )
+    print(f"{dataset_name} prediction saved to {file_output}")
+
+# Load data
+df = load_processed_data()
+train_data = df["train"]
+test_data = df["test"]
+dev_data = df["dev"]
+
+X_train, y_train = train_data["lemma"], train_data["label"]
+X_test, y_test = test_data["lemma"], test_data["label"]
+X_dev, y_dev = dev_data["lemma"], dev_data["label"]
+
+if VECTOR_TYPE == "tfidf":
+    vectorizer = TfidfVectorizer(
+        max_features=TFIDF_PARAMS.get('max_features'),
+        ngram_range=tuple(TFIDF_PARAMS.get('ngram_range', (1, 1))),
+        min_df=TFIDF_PARAMS.get('min_df', 1)
+    )
+elif VECTOR_TYPE == "word2vec":
+    vectorizer = None
 
 if TRAIN_MODEL:
     print("Training the model")
     model, transformer = train_model(X_train, y_train, vectorizer=vectorizer)
-    #results_file = os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_naive_bayes_results.txt")
+    #results_file = os.path.join(MODEL_FOLDER, f"{CURRENT_DATETIME}_logistic_regression_results.txt")
     #with open(results_file, "w") as file_writer:
-    #    file_writer.write("******* Training Parameters *******\n")
-    #    file_writer.write(f"Feature Extraction: {VECTOR_TYPE}\n")
-    #    if VECTOR_TYPE == "tfidf":
-    #        file_writer.write(f"TFIDF Parameters: {TFIDF_PARAMS}\n")
-    #    file_writer.write(f"Training Samples: {len(X_train)}\n")
-    #    file_writer.write("************************************\n")
+        #file_writer.write("******* Training Parameters *******\n")
+        #file_writer.write(f"Feature Extraction: {VECTOR_TYPE}\n")
+        #if VECTOR_TYPE == "tfidf":
+        #    file_writer.write(f"TFIDF Parameters: {TFIDF_PARAMS}\n")
+        #file_writer.write(f"Training Samples: {len(X_train)}\n")
+        #file_writer.write("************************************\n")
 
-    #    metrics_train = evaluate_model(model, transformer, X_train, y_train, "Train", file_writer)
-    #    metrics_test = evaluate_model(model, transformer, X_test, y_test, "Test", file_writer)
-    #    metrics_dev = evaluate_model(model, transformer, X_dev, y_dev, "Dev", file_writer)
+        #metrics_train = evaluate_model(model, transformer, X_train, y_train, "Train", file_writer)
+        #metrics_test = evaluate_model(model, transformer, X_test, y_test, "Test", file_writer)
+        #metrics_dev = evaluate_model(model, transformer, X_dev, y_dev, "Dev", file_writer)
 
     #save_dataset_output(model, transformer, X_train, y_train, "Train")
     save_dataset_output(model, transformer, X_test, y_test, "Test")

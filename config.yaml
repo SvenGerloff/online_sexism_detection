@@ -22,9 +22,8 @@ paths:
   nb_model_file: "milestone_2/run_naivebayes.py"
   nb_model_output: "nb_predictions.csv"
 
-  model_dir: "../milestone_2/models"
-  lr_model_dir: "./models/logistic_regression"
-  svm_model_dir: "./models/svm"
+  lr_model_dir: "../milestone_2/models/logistic_regression"
+  svm_model_dir: "../milestone_2/models/svm"
 
 
 files:
@@ -100,3 +99,10 @@ svm_params:
   kernel: "rbf"  # You can specify the kernel type (e.g., 'linear', 'poly', 'rbf', 'sigmoid')
   C: 1.0  # Regularization parameter
   gamma: "scale"  # Kernel coefficient for 'rbf', 'poly', and 'sigmoid'
+
+smote_params:
+  random_state: 42
+  sampling_strategy: 'auto'
+  k_neighbors: 5
+  n_jobs: -1
+
