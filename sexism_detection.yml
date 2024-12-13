@@ -16,10 +16,13 @@ dependencies:
   - tqdm
   - yaml
   - pyyaml
+  - imbalanced-learn
   - pip
   - pip:
       - stanza
   - pytorch
+  - gensim
+  - wandb
   - transformers
   - accelerate
   - datasets
